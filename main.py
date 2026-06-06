@@ -476,34 +476,53 @@ class CCCameraAnalytics:
         camera_source = self.config.get('camera_source', 0)
         source_text = f"Source: {camera_source}" if isinstance(camera_source, str) else f"Camera {camera_source}"
         
-        # Add info panel background (larger)
-        cv2.rectangle(annotated_frame, (5, 5), (450, 180), (0, 0, 0), -1)
-        cv2.rectangle(annotated_frame, (5, 5), (450, 180), (0, 255, 0), 3)
+        # Add info panel background (extended for recording status)
+        cv2.rectangle(annotated_frame, (5, 5), (450, 210), (0, 0, 0), -1)
+        cv2.rectangle(annotated_frame, (5, 5), (450, 210), (0, 255, 0), 3)
         
         # Add FPS counter
         if self.config.get('show_fps', True):
             cv2.putText(annotated_frame, f"FPS: {self.fps:.1f}", (15, 35),
-                       cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 255, 0), 2)
+                       cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 0), 2)
         
         # Add mode info
         cv2.putText(annotated_frame, f"Mode: {mode_name}", (15, 65),
-                   cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 255, 0), 2)
+                   cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 0), 2)
         
         # Add video source
         cv2.putText(annotated_frame, source_text, (15, 95),
-                   cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 2)
+                   cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
         
         # Add motion detection status
         motion_status = "Motion: ON" if self.use_motion_detection else "Motion: OFF"
         motion_color = (0, 255, 0) if self.use_motion_detection else (0, 0, 255)
         cv2.putText(annotated_frame, motion_status, (15, 125),
-                   cv2.FONT_HERSHEY_SIMPLEX, 0.6, motion_color, 2)
+                   cv2.FONT_HERSHEY_SIMPLEX, 0.5, motion_color, 2)
         
         # Add save status
         save_status = "Save: ON" if self.config.get('save_detections', True) else "Save: OFF"
         save_color = (0, 255, 0) if self.config.get('save_detections', True) else (0, 0, 255)
         cv2.putText(annotated_frame, save_status, (15, 155),
-                   cv2.FONT_HERSHEY_SIMPLEX, 0.6, save_color, 2)
+                   cv2.FONT_HERSHEY_SIMPLEX, 0.5, save_color, 2)
+        
+        # Add recording status with blinking indicator (inside status panel)
+        recording_status = self.config.get('record_video', False)
+        if recording_status:
+            # Blinking red REC indicator
+            blink = int(time.time() * 2) % 2  # Blink every 0.5 seconds
+            if blink:
+                # Draw filled red circle and REC text
+                cv2.circle(annotated_frame, (30, 178), 7, (0, 0, 255), -1)
+                cv2.putText(annotated_frame, "REC", (45, 185),
+                           cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 0, 255), 2)
+            else:
+                # Draw empty circle and REC text
+                cv2.circle(annotated_frame, (30, 178), 7, (0, 0, 255), 2)
+                cv2.putText(annotated_frame, "REC", (45, 185),
+                           cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 0, 255), 2)
+        else:
+            cv2.putText(annotated_frame, "Recording: OFF", (15, 185),
+                       cv2.FONT_HERSHEY_SIMPLEX, 0.5, (128, 128, 128), 2)
         
         # Add instruction at bottom
         if not self.show_help_overlay:
@@ -632,31 +651,20 @@ class CCCameraAnalytics:
         cv2.putText(frame, "KEYBOARD CONTROLS", (title_x, title_y),
                    cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 255, 255), 2)
         
-        # Controls list - ALL controls included
+        # Controls list - Clear and descriptive
         controls = [
-            ("Basic Controls:", (255, 255, 0)),
-            ("  Q - Quit application", (255, 255, 255)),
-            ("  P - Pause/Resume video", (255, 255, 255)),
-            ("  S - Save current frame", (255, 255, 255)),
-            ("  H - Toggle this help", (255, 255, 255)),
-            ("  W - Reset window size", (255, 255, 255)),
-            ("  A - Auto-fit window", (255, 255, 255)),
+            ("Q=Quit  P=Pause/Resume  S=SaveFrame", (255, 255, 255)),
+            ("H=Help  W=ResetWin  A=AutoFit", (255, 255, 255)),
             ("", (0, 0, 0)),
-            ("Performance Modes:", (255, 255, 0)),
-            ("  1 - High Accuracy", (255, 255, 255)),
-            ("  2 - Balanced (default)", (255, 255, 255)),
-            ("  3 - High Performance", (255, 255, 255)),
-            ("  4 - Ultra Fast", (255, 255, 255)),
+            ("1=Accuracy  2=Balanced", (255, 255, 0)),
+            ("3=HighPerf  4=UltraFast", (255, 255, 0)),
             ("", (0, 0, 0)),
-            ("Feature Toggles:", (255, 255, 0)),
-            ("  M - Motion detection", (255, 255, 255)),
-            ("  D - Save detections", (255, 255, 255)),
-            ("  R - Record video", (255, 255, 255)),
-            ("  F - Show full status", (255, 255, 255)),
+            ("M=MotionDetect  D=AutoSave", (0, 255, 255)),
+            ("R=RecordVideo   F=StatusPanel", (0, 255, 255)),
         ]
         
-        y = title_y + 45
-        line_height = 27
+        y = title_y + 40
+        line_height = 32
         
         for text, color in controls:
             if text:  # Skip empty lines

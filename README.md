@@ -41,6 +41,11 @@ cc_camera_analytics/
 │   ├── DISPLAY_INFO.md
 │   └── ENABLE_LONG_PATHS.md
 │
+├── cleanup_tool/          # 🗑️ Cleanup utility
+│   ├── cleanup_detections.py  # GUI cleanup app
+│   ├── CLEANUP.bat        # Windows launcher
+│   └── README.md          # Cleanup tool guide
+│
 ├── scripts/               # Utility scripts
 ├── examples/              # Example configs
 └── detections/            # Output files (auto-created)
@@ -165,8 +170,31 @@ pip install -r requirements.txt
 - 📊 **Performance Modes** - 4 optimized presets
 - 🔍 **Motion Detection** - Skip static frames for efficiency
 - 💾 **Async I/O** - Non-blocking file operations
+- 🗑️ **Cleanup Tool** - Manage disk space by deleting old files
 
-## 🐛 Troubleshooting
+## 🗑️ Cleanup Tool
+
+Manage accumulated detection files to free up disk space:
+
+```bash
+# Windows
+cd cleanup_tool
+CLEANUP.bat
+
+# Linux/Mac
+cd cleanup_tool
+python3 cleanup_detections.py
+```
+
+**Features:**
+- Delete files by time frame (1, 3, 7, 30 days, or custom range)
+- Select file types (images, videos, logs)
+- Preview before deletion
+- Safe with confirmation dialogs
+
+See [`cleanup_tool/README.md`](cleanup_tool/README.md) for complete guide.
+
+##  Troubleshooting
 
 **Python not found**: Install Python 3.8+ from python.org
 

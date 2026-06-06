@@ -199,6 +199,111 @@ For developers and advanced users:
 - Recordings are saved only to your local disk
 - You have full control over all saved files
 
+## 🗑️ Cleanup Tool - Managing Disk Space
+
+As you use the application, detection files accumulate and can take up significant disk space. The Cleanup Tool helps you manage these files efficiently.
+
+### What Gets Saved?
+- **Detection Images** - Snapshots when objects are detected (`.jpg` files)
+- **Recorded Videos** - Full video recordings with detections (`.mp4` files)
+- **Detection Logs** - Metadata about detections (`.json` files)
+
+### Running the Cleanup Tool
+
+**Windows:**
+1. Navigate to the `cleanup_tool` folder
+2. Double-click `CLEANUP.bat`
+3. The GUI window will open
+
+**Linux/Mac:**
+```bash
+cd cleanup_tool
+python3 cleanup_detections.py
+```
+
+### Using the Cleanup Tool
+
+#### Step 1: Select Time Frame
+Choose which files to delete based on age:
+- **Older than 1 day** - Delete yesterday's files
+- **Older than 3 days** - Keep last 3 days
+- **Older than 7 days** - Keep last week (recommended)
+- **Older than 30 days** - Keep last month
+- **All files** - Delete everything (use with caution!)
+- **Custom date range** - Specify exact dates (YYYY-MM-DD format)
+
+#### Step 2: Select File Types
+Check which types of files to delete:
+- ☑ Detection Images (.jpg)
+- ☑ Recorded Videos (.mp4)
+- ☑ Detection Logs (.json)
+
+Uncheck any types you want to keep.
+
+#### Step 3: Scan Files
+Click **"🔍 Scan Files"** to preview:
+- Number of files that will be deleted
+- Total disk space that will be freed
+- Breakdown by file type
+
+**No files are deleted during scanning** - it's safe to scan multiple times.
+
+#### Step 4: Delete Files
+Click **"🗑️ Delete Selected"** to:
+1. See a confirmation dialog with details
+2. Confirm the deletion (cannot be undone!)
+3. Files are permanently deleted
+4. Statistics automatically update
+
+### Safety Features
+- ✅ **Preview before delete** - Always see what will be deleted
+- ✅ **Confirmation required** - Must confirm before deletion
+- ✅ **Main log preserved** - The main `detections.json` is never deleted
+- ✅ **Selective deletion** - Choose specific file types and time frames
+
+### Tips for Regular Maintenance
+1. **Weekly Cleanup** - Run every week with "Older than 7 days"
+2. **Before Important Sessions** - Free up space before recording
+3. **Backup First** - Copy important files before cleanup
+4. **Test with Scan** - Always scan first to verify selection
+5. **Keep Recent Files** - Don't delete files from last few days
+
+### Example Scenarios
+
+**Scenario 1: Regular Maintenance**
+- Time Frame: "Older than 7 days"
+- File Types: All checked
+- Result: Keeps last week, deletes older files
+
+**Scenario 2: Free Up Space Quickly**
+- Time Frame: "Older than 30 days"
+- File Types: Videos only
+- Result: Deletes old videos (largest files), keeps images
+
+**Scenario 3: Clean Specific Period**
+- Time Frame: "Custom date range" (2024-01-01 to 2024-01-31)
+- File Types: All checked
+- Result: Deletes only files from January 2024
+
+### Troubleshooting Cleanup Tool
+
+**"No files found"**
+- Check that `detections/` folder exists
+- Verify files match the selected time frame
+- Try "All files" to see if any files exist
+
+**"Permission denied"**
+- Close the main application first
+- Run as administrator (Windows)
+- Check file permissions
+
+**"Tkinter not installed"**
+- Windows: Reinstall Python with "tcl/tk and IDLE" option
+- Linux: `sudo apt-get install python3-tk`
+- macOS: `brew install python-tk`
+
+For complete cleanup tool documentation, see [`cleanup_tool/README.md`](../cleanup_tool/README.md).
+
 ---
 
 **Need more help?** Check the other documentation files or contact support.
