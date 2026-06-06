@@ -1,0 +1,20 @@
+{
+  "camera_source": "rtsp://admin:password@192.168.1.64:554/stream1",
+  "detection_confidence": 0.6,
+  "nms_threshold": 0.4,
+  "frame_width": 1280,
+  "frame_height": 720,
+  "save_detections": true,
+  "output_dir": "detections",
+  "show_fps": true,
+  "detection_classes": [
+    "person",
+    "car",
+    "motorcycle",
+    "bicycle",
+    "truck",
+    "bus"
+  ],
+  "alert_on_detection": true,
+  "record_video": false
+}

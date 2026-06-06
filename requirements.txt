@@ -1,0 +1,17 @@
+# CC Camera Analytics - Required Dependencies
+
+# Core Computer Vision Libraries
+opencv-python>=4.8.0
+opencv-contrib-python>=4.8.0
+numpy>=1.24.0
+
+# YOLOv8 for Advanced Object Detection (80+ object types)
+# Note: May require Windows Long Paths enabled (see docs/ENABLE_LONG_PATHS.md)
+ultralytics>=8.0.0
+
+# For Building Standalone Executable
+pyinstaller>=6.0.0
+
+# Optional: Uncomment if needed
+# tensorflow>=2.13.0  # For TensorFlow-based models
+# torch>=2.0.0        # For PyTorch-based models (included with ultralytics)

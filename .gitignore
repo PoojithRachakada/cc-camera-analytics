@@ -1,0 +1,65 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment
+venv/
+ENV/
+env/
+.venv
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Project Specific
+detections/images/*.jpg
+detections/videos/*.mp4
+detections/logs/*.json
+*.log
+
+# Keep directory structure but ignore contents
+detections/images/*
+!detections/images/.gitkeep
+detections/videos/*
+!detections/videos/.gitkeep
+detections/logs/*
+!detections/logs/.gitkeep
+
+# PyInstaller
+*.spec
+build/
+dist/
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+
+# Made with Bob

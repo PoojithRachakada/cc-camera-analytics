@@ -1,0 +1,19 @@
+{
+  "camera_source": 0,
+  "detection_confidence": 0.5,
+  "nms_threshold": 0.4,
+  "frame_width": 640,
+  "frame_height": 480,
+  "save_detections": true,
+  "output_dir": "detections",
+  "show_fps": true,
+  "detection_classes": [],
+  "alert_on_detection": true,
+  "record_video": false,
+  "skip_frames": 2,
+  "use_motion_detection": true,
+  "motion_threshold": 25,
+  "async_save": true,
+  "reduce_resolution": false,
+  "detection_scale": 0.5
+}

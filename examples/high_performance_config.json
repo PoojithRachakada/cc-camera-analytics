@@ -1,0 +1,22 @@
+{
+  "camera_source": 0,
+  "detection_confidence": 0.6,
+  "nms_threshold": 0.4,
+  "frame_width": 640,
+  "frame_height": 480,
+  "save_detections": true,
+  "output_dir": "detections",
+  "show_fps": true,
+  "detection_classes": [
+    "person",
+    "car"
+  ],
+  "alert_on_detection": true,
+  "record_video": false,
+  "skip_frames": 3,
+  "use_motion_detection": true,
+  "motion_threshold": 20,
+  "async_save": true,
+  "reduce_resolution": true,
+  "detection_scale": 0.5
+}

@@ -1,0 +1,23 @@
+{
+  "camera_source": 0,
+  "detection_confidence": 0.4,
+  "nms_threshold": 0.4,
+  "frame_width": 1280,
+  "frame_height": 720,
+  "save_detections": true,
+  "output_dir": "detections",
+  "show_fps": true,
+  "detection_classes": [
+    "person",
+    "car",
+    "motorcycle",
+    "bicycle",
+    "dog",
+    "cat",
+    "backpack",
+    "handbag",
+    "suitcase"
+  ],
+  "alert_on_detection": true,
+  "record_video": true
+}
